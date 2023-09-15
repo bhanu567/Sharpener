@@ -1,3 +1,4 @@
+//DELETE & EDIT
 var li = document.getElementById("items");
 li.addEventListener("click", (e) => {
   if (e.target.classList[0] === "delete") {
@@ -6,7 +7,7 @@ li.addEventListener("click", (e) => {
     }
   } else if (e.target.classList[0] === "edit") {
     var reqLi = e.target.parentElement;
-    var text = prompt("Enter The String");
+    var text = prompt("Enter The String", reqLi.innerText);
     if (text) {
       reqLi.innerHTML = text;
       var del = document.createElement("button");
@@ -26,12 +27,12 @@ li.addEventListener("click", (e) => {
   }
 });
 
+//SEARCH
 var filter = document.getElementById("filter");
 
 filter.addEventListener("keyup", filterItems);
 
 function filterItems(e) {
-
   var text = e.target.value.toLowerCase();
 
   var items = document.getElementsByTagName("li");
@@ -45,3 +46,36 @@ function filterItems(e) {
     }
   });
 }
+// APPEND NODE
+document.getElementById("sub").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  //Creating li
+  var newNode = document.createElement("li");
+
+  //adding class to li
+  newNode.classList = "list-group-item";
+
+  //adding text to li
+   newNode.innerText=document.getElementById("val").value;
+
+  //  creating delete button, adding class
+  var BD = document.createElement("button");
+  BD.innerHTML="X";
+  BD.className = "delete btn btn-danger btn-sm";
+
+  //creating edit button, adding class
+  var EDBT = document.createElement("button");
+  EDBT.textContent= "EDIT";
+  EDBT.className = "edit btn btn-danger btn-sm";
+
+  //appending delete and edit
+  newNode.appendChild(EDBT);
+  newNode.appendChild(BD);
+  BD.style.cssFloat = "right";
+  BD.style.marginRight = "5px";
+  EDBT.style.cssFloat = "right";
+
+  //appending in list
+  document.getElementById("items").appendChild(newNode);
+});
